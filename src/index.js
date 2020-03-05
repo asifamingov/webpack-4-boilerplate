@@ -1,21 +1,31 @@
-import { hello, tes } from './scripts/import-example';
+// env initialization
+import qg from './utils/qg-env';
 
-import './styles/style.css';
-import './styles/style.scss';
-import './styles/style.sass';
+// utils import
+import './utils/qg-util';
 
-hello();
+// legacy module imports
+import './legacy/forms/forms';
+import './legacy/site-search-autocomplete.js';
 
-async function run() {
-  const value = await tes();
-  console.log(value)
-}
+// components import
+import './components/qg-components';
 
-run();
+// Layout imports
+import './layout/footer/footer-legals';
+import activeSideNav      from './layout/section-nav/section-nav';
+import stepNav      from './layout/section-nav/step-nav';
+import shareLinks         from './layout/content/share-links';
+import './layout/content/content';
+import './layout/content/content-types/figure-credits-toggle';
+import feedbackForm       from './layout/footer/feedback-form';
 
-async function lazyLoadExample() {
-  const { lazyLoad } = await import('./scripts/lazy-load-example');
-  lazyLoad().then(res => console.log(res));
-};
-
-document.querySelector("#lazy-load").addEventListener('click', lazyLoadExample);
+(function () {
+  'use strict';
+  const franchiseTitle = qg && qg.swe && qg.swe.franchiseTitle;
+  activeSideNav.highlightNavItem();
+  stepNav.init();
+  feedbackForm(franchiseTitle);
+  shareLinks();
+  console.log('sadasef');
+}());
